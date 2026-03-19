@@ -1,0 +1,90 @@
+# Tým Tým Kámoši langoši.exe (1)
+
+**Členové týmu:**
+
+- xbaloud00 (Vedoucí týmu)
+- xkralva00
+- xmaskal00
+
+---
+
+### 1. Komunikační kanály a pravidla
+
+- **Hlavní kanál:** Discord (vytvořen privátní server pro tým).
+- **Asynchronní komunikace:** Skupinový chat na Messengeru pro rychlé dotazy.
+- **Pravidla komunikace:** Týmová schůzka (voice call) proběhne povinně každou neděli ve 20:00 pro zhodnocení postupu a naplánování dalšího týdne. Reakční doba na zprávy ohledně projektu je stanovena maximálně na 24 hodin.
+- Pravidelné týmové schůzky budou probíhat dvakrát týdně, a to vždy v neděli a dále ve středu nebo ve čtvrtek podle časových možností členů týmu.
+
+### 2. Systém pro správu verzí, volba jazyka a repozitář
+
+- **Verzovací systém:** Git
+- Zvolený jazyk: Python
+- **Hosting:** GitHub.com
+- **Adresa repozitáře:** https://github.com/Danko669/IVSProjekt2.git
+- **Přístup pro vyučující:** Do repozitáře byl přidán uživatel `ivskontrola` (e-mail: ivs.kontrola@gmail.com) s právy pro čtení (Read access), aby mohli cvičící nahlížet na postup práce.
+
+### 3. Přidělení úkolů (Role v týmu)
+
+Práce je rozdělena rovnoměrně tak, aby se každý podílel na vývoji i dokumentaci.
+
+**xbaloud00 (Vedoucí týmu, Vývojář GUI a designu)**
+
+- Založení a nastavení repozitáře, přístupy pro vyučující.
+- Návrh a implementace grafického uživatelského rozhraní (GUI) nad matematickou knihovnou.
+- Zajištění ovládání pomocí klávesnice.
+- Implementace srozumitelného výpisu chyb (např. dělení nulou, příliš velké číslo) v GUI.
+- Vytvoření mockupu pro další verzi kalkulačky (vědecký mód, grafy, atd.).
+- Provedení a odevzdání snímku z debuggingu (debugging.png).
+
+**xkralva00 (Vývojář logiky a tester)**
+
+- Návrh a implementace automatických testů (koncept Test-driven development) pro matematickou knihovnu.
+- Naprogramování samotné matematické knihovny (+, -, *, /, faktoriál, mocnina, odmocnina, 1 volitelná funkce).
+- Program pro profiling (výpočet směrodatné odchylky) a zpracování protokolu z profileru (zprava.txt/pdf).
+
+**xmaskal00 (DevOps a technický pisatel)**
+
+- Sestavení `Makefile` se všemi požadovanými cíli (all, pack, clean, test, doc, run, stddev, help).
+- Vygenerování programové dokumentace (nastavení a konfigurace Doxygen).
+- Vytvoření uživatelské dokumentace (`manual.pdf`), včetně návodu k instalaci/odinstalaci a překladu.
+- Vytvoření instalačních a odinstalačních skriptů (instalátor).
+- Příprava finálního formátu repozitáře (`README.md` dle šablony, `.gitignore`).
+
+**Společné úkoly pro všechny:**
+
+- Testování celého programu na zvoleném virtuálním stroji.
+- Vzájemná code review.
+- Shoda na přerozdělení bodů v souboru `hodnoceni.txt`.
+
+### 4. Harmonogram a milníky (Stanovené termíny)
+
+**Fáze 1: Setup a TDD (Test-Driven Development)**
+
+- **19. 3. 2026** – Odevzdání plánu projektu, založení repozitáře, přidání vyučujících (`ivskontrola`). *(Odpovídá: xbaloud00)*
+- **25. 3. 2026** – Příprava struktury projektu a adresářů (src, doc, install atd.). Nastavení verzování a `.gitignore`. *(Odpovídá: xmaskal00)*
+- **2. 4. 2026** – Napsány všechny automatické testy pro matematickou knihovnu (přísně dle pravidel TDD, před samotnou implementací). *(Odpovídá: xkralva00)*
+
+**Fáze 2: Backend a Build systém**
+
+- **8. 4. 2026** – Implementace matematické knihovny (+, -, *, /, faktoriál, mocnina, odmocnina, doplňková funkce). Všechny testy úspěšně prochází. *(Odpovídá: xkralva00)*
+- **10. 4. 2026** – Vytvořen a otestován `Makefile` se všemi cíli. Vytvořen základ programu pro profiling (`stddev`). *(Spolupráce: xmaskal00 a xkralva00)*
+- **12. 4. 2026** – Proveden debugging matematické knihovny a pořízen důkazní snímek (`debugging.png`). *(Odpovídá: xbaloud00 – v rámci peer review zkontroluje kód od xkralva00)*
+
+**Fáze 3: Frontend (GUI), Profiling a Mockup**
+
+- **17. 4. 2026** – Hotové grafické uživatelské rozhraní propojené s matematickou knihovnou. Zajištěno ovládání klávesnicí a chybové hlášky. *(Odpovídá: xbaloud00)*
+- **20. 4. 2026** – Dokončen profiling programu pro výpočet směrodatné odchylky na velkých datech, zpracován protokol (`zprava.pdf`). *(Odpovídá: xkralva00)*
+- **24. 4. 2026** – Navržen mockup pro další verzi kalkulačky s pokročilými funkcemi. *(Odpovídá: xbaloud00)*
+
+**Fáze 4: Dokumentace, Instalátory a Finální testování**
+
+- **27. 4. 2026** – Vytvořeny instalační a odinstalační skripty/balíčky. *(Odpovídá: xmaskal00)*
+- **29. 4. 2026** – Vygenerována programová dokumentace (Doxygen) a kompletně sepsána uživatelská dokumentace (`manual.pdf`). *(Odpovídá: xmaskal00)*
+- **Týden před odevzdáním** – Finální testování instalace, běhu a odinstalace programu na **čistém testovacím virtuálním prostředí (Ubuntu/Windows z VUT)**. *(Všichni)*
+- **Den před deadlinem** – Závěrečné code review, vypsání souborů `README.md` a `hodnoceni.txt`, finální zabalení projektu (`make pack`) a odevzdání. *(Všichni pod vedením xbaloud00)*
+
+**Fáze 5: Seznam problémů**
+
+- **13. 5. 2026** – Hotový seznam problémů. *(Odpovídá: všichni)*
+
+ ****
