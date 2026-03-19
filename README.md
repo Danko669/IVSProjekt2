@@ -1,7 +1,8 @@
 Prostredi
 ---------
 
-Ubuntu 64bit -- pokud bude 100 funkční
+Ubuntu 64bit -- pokud bude 100% funkční
+
 Windows 64bit
 
 Autori
