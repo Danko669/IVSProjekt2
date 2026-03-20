@@ -1,85 +1,213 @@
 import calc 
 
 
+###########################
+# Testy add 
 
-# Testy na sčítaní 
-def test_calc_add():
+###########################
+
+# Testy na přidání kladných čísel
+def test_calc_add_positive():
     assert calc.add(2, 3) == 5
-    assert calc.add(-1, -2) == -3
-    assert calc.add(2, -3) == -1
-    assert calc.add(-2, 3) == 1
-    assert calc.add(0, 0) == 0
-    assert calc.add(0, 2) == 2
-    assert calc.add(2, 0) == 2
-    assert calc.add(-2, 0) == -2
-    assert calc.add(0, -2) == -2
     assert calc.add(2.5, 3.5) == 6.0
 
+# Testy na přidání záporných čísel
+def test_calc_add_negative():
+    assert calc.add(-2, -3) == -5
+    assert calc.add(-4, -2) == -6
+
+# Testy na přidání smíšených čísel
+def test_calc_add_mixed():
+    assert calc.add(2, -3) == -1
+    assert calc.add(-2, 3) == 1
+
+# Testy na přidání nuly    
+def test_calc_add_zero():
+    assert calc.add(0, 0) == 0
+    assert calc.add(0, 5) == 5
+    assert calc.add(5, 0) == 5
+    assert calc.add(0, -5) == -5
+    assert calc.add(-5, 0) == -5
+
+
+
+
+###########################   
+ 
  # Testy na odčítaní 
-def test_calc_subtract():
+
+###########################
+
+# Testy na odčítaní kladných čísel
+def test_calc_subtract_positive():
     assert calc.subtract(5, 2) == 3
-    assert calc.subtract(1, 2) == -1
+
+# Testy na odčítaní záporných čísel
+def test_calc_subtract_negative():
+    assert calc.subtract(-5, -2) == -3
+
+# Testy na odčítaní smíšených čísel
+def test_calc_subtract_mixed():
     assert calc.subtract(2, -3) == 5
     assert calc.subtract(-2, 3) == -5
-    assert calc.subtract(-3, -2) == -1
-    assert calc.subtract(0, 2) == -2
-    assert calc.subtract(2, 0) == 2
-    assert calc.subtract(0, -2) == 2
-    assert calc.subtract(-2, 0) == -2
-    assert calc.subtract(0, 0) == 0
+    assert calc.subtract(2, 3) == -1
+    assert calc.subtract(-2, -3) == 1
 
+# Testy na odčítaní nuly
+def test_calc_subtract_zero():
+    assert calc.subtract(0, 0) == 0
+    assert calc.subtract(0, 5) == -5
+    assert calc.subtract(5, 0) == 5
+    assert calc.subtract(0, -5) == 5
+    assert calc.subtract(-5, 0) == -5
+
+
+
+
+###########################
 # Testy na násobení 
-def test_calc_multiply():
+
+###########################
+
+# Testy na násobení kladných čísel
+def test_calc_multiply_positive():
     assert calc.multiply(2, 3) == 6
     assert calc.multiply(3, 2) == 6
-    assert calc.multiply(-2, 3) == -6
-    assert calc.multiply(2, -3) == -6
+
+# Testy na násobení záporných čísel
+def test_calc_multiply_negative():
     assert calc.multiply(-2, -3) == 6
+    assert calc.multiply(-3, -2) == 6
+   
+# Testy na násobení smíšených čísel
+def test_calc_multiply_mixed():
+    assert calc.multiply(2, -3) == -6
+    assert calc.multiply(-2, 3) == -6
+
+# Testy na násobení nuly
+def test_calc_multiply_zero():
+    assert calc.multiply(0, 0) == 0
     assert calc.multiply(0, 5) == 0
     assert calc.multiply(5, 0) == 0
+    assert calc.multiply(0, -5) == 0
+    assert calc.multiply(-5, 0) == 0
 
+
+
+
+###########################
 # Testy na dělení 
-def test_calc_divide():
+
+###########################
+
+# Testy na dělení kladných čísel
+def test_calc_divide_positive():
     assert calc.divide(10, 2) == 5
+    assert calc.divide(10, 5) == 2
+    assert calc.divide(2, 10) == 0.2
+
+# Testy na dělení záporných čísel
+def test_calc_divide_negative():
+    assert calc.divide(-10, -2) == 5
+    assert calc.divide(-10, -5) == 2
+    assert calc.divide(-2, -10) == 0.2
+
+# Testy na dělení smíšených čísel
+def test_calc_divide_mixed():
     assert calc.divide(10, -2) == -5
     assert calc.divide(-10, 2) == -5
-    assert calc.divide(-10, -2) == 5
+    assert calc.divide(2, -10) == -0.2
+
+
+# Testy na dělení nuly
+def test_calc_divide_zero():
     assert calc.divide(0, 5) == 0
-    assert calc.divide(10, 0) == "Error: Division by zero"
+    assert calc.divide(0, -5) == 0
+    assert calc.divide(0, 0) == "Error: Division by zero"
+    assert calc.divide(5, 0) == "Error: Division by zero"
+    assert calc.divide(-5, 0) == "Error: Division by zero"
 
+
+
+###########################
  # Testy na mocniny 
-def test_calc_power():
+
+###########################
+
+# Testy na mocniny kladných čísel
+def test_calc_power_positive():
     assert calc.power(2, 3) == 8
-    assert calc.power(3, 2) == 9
-    assert calc.power(-2, 2) == 4
+    assert calc.power(2, 2) == 4
+    assert calc.power(2, 1) == 2
+
+# Testy na mocniny záporných čísel
+def test_calc_power_negative():
+    assert calc.power(-2, -1) == -0.5
+    assert calc.power(-2, -2) == 0.25
+
+# Testy na mocniny smíšených čísel
+def test_calc_power_mixed():
     assert calc.power(-2, 3) == -8
+    assert calc.power(-2, 2) == 4
     assert calc.power(2, -1) == 0.5
-    assert calc.power(2, 0) == 1
+
+# Testy na mocniny nuly
+def test_calc_power_zero():
+    assert calc.power(0, 0) == "Error: 0 raised to the power of 0 is undefined"
     assert calc.power(0, 2) == 0
+    assert calc.power(0, -2) == "Error: 0 cannot be raised to a negative power"
+    assert calc.power(2, 0) == 1
+    assert calc.power(-2, 0) == 1
 
- # Testy na odmocniny 
-def test_calc_sqrt():
-    assert calc.sqrt(16, 2) == 4
-    assert calc.sqrt(16, 4) == 2
-    assert calc.sqrt(16, 1) == 16
-    assert calc.sqrt(16, 3) == 2.5198420997897464
-    assert calc.sqrt(16, -2) == "Error: Root degree must be greater than zero"
-    assert calc.sqrt(16, 0) == "Error: Root degree must be greater than zero"
-    assert calc.sqrt(-16, 2) == "Error: Cannot calculate square root of negative number"
-    assert calc.sqrt(0, 2) == 0
 
+
+
+###########################
+# Testy na odmocniny 
+
+###########################
+
+# Testy na odmocniny kladných čísel
+def test_calc_sqrt_positive():
+    assert calc.sqrt(4) == 2
+
+
+# Testy na odmocniny záporných čísel
+def test_calc_sqrt_negative():
+    assert calc.sqrt(-2) == "Error: "
+
+# Testy na odmocniny nuly
+def test_calc_sqrt_zero():
+    assert calc.sqrt(0) == 0
+
+###########################
  # Testy na faktoriál 
-def test_calc_factorial():
+
+ ###########################
+
+# Testy na faktoriál kladných čísel
+def test_calc_factorial_positive():
     assert calc.factorial(1) == 1
     assert calc.factorial(2) == 2
     assert calc.factorial(3) == 6
     assert calc.factorial(4) == 24
     assert calc.factorial(5) == 120
-    assert calc.factorial(0) == 1
-    assert calc.factorial(-1) == "Error: Factorial is not defined for negative numbers"
     assert calc.factorial(2.2) == "Error: Factorial is not defined for non-integer numbers"
 
+# Testy na faktoriál záporných čísel
+def test_calc_factorial_negative():
+    assert calc.factorial(-3) == "Error: Factorial is not defined for negative numbers" 
+    assert calc.factorial(-1) == "Error: Factorial is not defined for negative numbers"
+
+# Testy na faktoriál nuly
+def test_calc_factorial_zero():
+    assert calc.factorial(0) == 1
+   
+
+###########################
 # Testy na absolutní hodnotu
+
+###########################
 def test_calc_absolute_value():
     assert calc.absolute_value(5) == 5
     assert calc.absolute_value(-5) == 5
