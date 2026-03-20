@@ -5,3 +5,5 @@
 # 	cout << "Sample calculator source code" << endl;
 # 	return 0;
 # }
+
+print("Hello world!")
