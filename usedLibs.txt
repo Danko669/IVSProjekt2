@@ -1,1 +1,2 @@
+Zápis použitých externích knihoven
 pytest
