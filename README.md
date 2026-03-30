@@ -1,14 +1,14 @@
 Prostredi
 ---------
 
-Ubuntu 64bit -- pokud bude 100% funkční
+Ubuntu 64bit
 
-Windows 64bit
+
 
 Autori
 ------
 
-Nazev tymu
+Tým Tým Kámoši langoši.exe (1)
 - xkralva00 Václav Král 
 - xbaloud00 Daniel Baloun 
 - xmaskal00 Libor Maška 
