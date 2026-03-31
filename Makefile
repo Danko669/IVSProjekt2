@@ -12,6 +12,9 @@ stddev:
 clean:
 	rm -rf src/__pycache__ __pycache__
 	rm -rf .pytest_cache
+github:
+	explorer.exe https://github.com/Danko669/IVSProjekt2
+
 
 help:
 	@echo "Dostupne cile:"
