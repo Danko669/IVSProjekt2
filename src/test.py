@@ -221,41 +221,41 @@ def test_power_errors():
 ###########################
 
 # Testy na odmocniny kladných čísel
-def test_calc_sqrt_positive():
-    assert calc.sqrt(4, 2) == 2
-    assert calc.sqrt(9, 2) == 3
-    assert calc.sqrt(27, 3) == 3
-    assert calc.sqrt(16, 4) == 2
-    assert math.isclose(calc.sqrt(2.25, 2), 1.5)
-    assert calc.sqrt(1, 3) == 1
-    assert calc.sqrt(1, 2) == 1
+def test_calc_root_positive():
+    assert calc.root(4, 2) == 2
+    assert calc.root(9, 2) == 3
+    assert calc.root(27, 3) == 3
+    assert calc.root(16, 4) == 2
+    assert math.isclose(calc.root(2.25, 2), 1.5)
+    assert calc.root(1, 3) == 1
+    assert calc.root(1, 2) == 1
 
 # Testy na odmocniny záporných čísel
-def test_calc_sqrt_negative():
-    assert math.isclose(calc.sqrt(-8, -3), -2)
-    assert math.isclose(calc.sqrt(-1, -3), -1)
+def test_calc_root_negative():
+    assert math.isclose(calc.root(-8, -3), -2)
+    assert math.isclose(calc.root(-1, -3), -1)
 
 # Testy na odmocniny smíšených čísel
-def test_calc_sqrt_mixed():
-    assert math.isclose(calc.sqrt(8, -3), -2)
-    assert math.isclose(calc.sqrt(-8, 3), -2)
+def test_calc_root_mixed():
+    assert math.isclose(calc.root(8, -3), -2)
+    assert math.isclose(calc.root(-8, 3), -2)
 
 # Testy na odmocniny nuly
-def test_calc_sqrt_zero():
-    assert calc.sqrt(0, 2) == 0
-    assert calc.sqrt(0, 3) == 0
-    assert calc.sqrt(0, 4) == 0
+def test_calc_root_zero():
+    assert calc.root(0, 2) == 0
+    assert calc.root(0, 3) == 0
+    assert calc.root(0, 4) == 0
 
 # Testy na chyby při výpočtu odmocnin
-def test_sqrt_errors():
+def test_root_errors():
     with pytest.raises(ValueError, match="Root degree cannot be zero"):
-        calc.sqrt(5, 0)
+        calc.root(5, 0)
     with pytest.raises(ValueError, match="0 cannot be raised to a negative power"):
-        calc.sqrt(0, -2)
+        calc.root(0, -2)
     with pytest.raises(ValueError, match="Square root is not defined for negative numbers"):
-        calc.sqrt(-4, 2)
+        calc.root(-4, 2)
     with pytest.raises(ValueError, match="Complex numbers are not supported"):
-        calc.sqrt(-2, 2.5)   
+        calc.root(-2, 2.5)   
      
 ###########################
  # Testy na faktoriál 
