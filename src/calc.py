@@ -1,9 +1,5 @@
-# Zadaný příklad
-# #include<iostream>
+import test
+import mathematic as calc
 
-# int main() {
-# 	cout << "Sample calculator source code" << endl;
-# 	return 0;
-# }
 
 print("Hello world!")
