@@ -293,3 +293,21 @@ def test_calc_absolute_value():
     assert calc.absolute_value(0) == 0
     assert calc.absolute_value(2.5) == 2.5
     assert calc.absolute_value(-2.5) == 2.5
+
+
+###########################
+# Testy na vyhodnocení matematického výrazu
+
+###########################
+def test_calc_evaluate():
+    assert calc.evaluate("add(2, multiply(3, 4))") == 14
+    assert calc.evaluate("power(2, 3) + factorial(3)") == 14
+    assert calc.evaluate("root(16,2) + absolute_value(-4)") == 8
+    assert calc.evaluate("subtract(10, divide(20, 4))") == 5
+    assert calc.evaluate("factorial(5) - power(2, 3)") == 112
+    assert calc.evaluate("absolute_value(-3) + root(27, 3)") == 6
+    assert calc.evaluate("add(2.5, multiply(3.5, 4))") == 16.5
+    assert calc.evaluate("power(2.5, 3) + factorial(4)") == 30.625
+    assert calc.evaluate("root(2.25, 2) + absolute_value(-1.5)") == 3.0
+    with pytest.raises(NameError):
+        calc.evaluate("invalid_function(2, 3)")
