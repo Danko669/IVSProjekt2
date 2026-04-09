@@ -1,23 +1,26 @@
-# Binární soubory
-*.o
-*.obj
-*.exe
-*.dll
-*.so
-
-# Python
+# virtuální prostředí pythonu
 __pycache__/
 *.py[cod]
 *$py.class
-.pytest_cache/
 .venv/
 venv/
+env/
 
-# Doxygen
+# testy
+.pytest_cache/
+.coverage
+htmlcov/
+
+# dokumentace
 doc/html/
 doc/latex/
 doc/xml/
 
-# Archivy
-*.zip
+# archivy
 *.tar.gz
+*.zip
+
+# vscode
+.vscode/
+.idea/
+
