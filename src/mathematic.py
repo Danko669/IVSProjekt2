@@ -1,5 +1,5 @@
 
-# Matematické operace pro kalkulačku
+# Matematické operace pro výpočet sčítaní
 def add(a,b):
     return a + b
 
@@ -53,3 +53,17 @@ def factorial(n):
 def absolute_value(x):
     return abs(x)
 
+# Funkce pro vyhodnocení matematického výrazu
+def evaluate(expression):
+    allowed_names = {
+        'add': add,
+        'subtract': subtract,
+        'multiply': multiply,
+        'divide': divide,
+        'power': power,
+        'root': root,
+        'factorial': factorial,
+        'absolute_value': absolute_value,
+        }
+
+    return eval(expression, {"__builtins__": None}, allowed_names)
