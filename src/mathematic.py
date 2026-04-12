@@ -1,4 +1,6 @@
 
+# @author Vaclav Kral xkralva00
+
 # Matematické operace pro výpočet sčítaní
 def add(a,b):
     return a + b
