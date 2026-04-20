@@ -1,31 +1,68 @@
+##
+# @file mathematic.py
+# @brief Matematická knihovna pro základní operace
+# @author Václav Král xkralva00
+# @date 2026-04-02
 
-# @author Vaclav Kral xkralva00
-
-# Matematické operace pro výpočet sčítaní
+##
+# @brief Provede součet dvou čísel
+# @param a První číslo
+# @param b Druhé číslo
+# @return Součet a a b
 def add(a,b):
     return a + b
 
-# Matematická operace pro výpočet odčítaní
+
+
+##
+# @brief Provede odčítání dvou čísel
+# @param a První číslo
+# @param b Druhé číslo
+# @return Rozdíl a a b
 def subtract(a,b):
     return a - b
 
-# Matematická operace pro výpočet násobení
+
+
+##
+# @brief Provede násobení dvou čísel
+# @param a První číslo
+# @param b Druhé číslo
+# @return Součin a a b
 def multiply(a,b):
     return a * b
 
-# Matematická operace pro výpočet dělení
+
+
+##
+# @brief Provede dělení dvou čísel
+# @param a První číslo
+# @param b Druhé číslo
+# @return Podíl a a b
 def divide(a,b):
     if b == 0:
         raise ZeroDivisionError("Cannot divide by zero")
     return a / b
 
-# Matematická operace pro výpočet mocniny
+
+
+##
+# @brief Provede umocnění čísla a na b
+# @param a Základ
+# @param b Mocnitel
+# @return Výsledek umocnění
 def power(a,b):
     if a == 0 and b < 0:
         raise ValueError("Cannot raise zero to a negative power")
     return a ** b
 
-# Matematická operace pro výpočet odmocniny
+
+
+##
+# @brief Provede výpočet n-té odmocniny čísla a
+# @param a Číslo, ze kterého se odmocnina počítá
+# @param b Stupeň odmocniny
+# @return Výsledek odmocniny
 def root(a, b):
     if b == 0:
         raise ValueError("Root degree cannot be zero")
@@ -37,7 +74,12 @@ def root(a, b):
          raise ValueError("Cannot compute 0th root of 0")
     return a ** (1 / b)
 
-# Matematická operace pro výpočet faktoriálu
+
+
+##
+# @brief Provede výpočet faktoriálu čísla n
+# @param n Číslo, pro které se faktoriál počítá 
+# @return Výsledek faktoriálu
 def factorial(n):
     if not isinstance(n, int):
         raise ValueError("Factorial is only defined for integers")
@@ -51,11 +93,21 @@ def factorial(n):
             result *= i
         return result
 
-# Matematická operace pro výpočet absolutní hodnoty  
+
+
+##
+# @brief Provede výpočet absolutní hodnoty čísla x
+# @param x Číslo, pro které se absolutní hodnota počítá
+# @return Výsledek absolutní hodnoty
 def absolute_value(x):
     return abs(x)
 
-# Funkce pro vyhodnocení matematického výrazu
+
+
+##
+# @brief Vyhodnotí matematický výraz zadaný jako řetězec
+# @param expression Matematický výraz jako řetězec
+# @return Výsledek vyhodnocení výrazu
 def evaluate(expression):
     allowed_names = {
         'add': add,
