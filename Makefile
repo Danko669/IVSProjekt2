@@ -1,3 +1,9 @@
+##
+# @file Makefile
+# @author Libor Maška xmaskal00
+# @date 2026-04-09
+
+
 CALC = src/calc.py
 TEST = src/test.py
 PROF = src/profiling.py
