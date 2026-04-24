@@ -76,26 +76,21 @@ def sqrt(a):
 # @param b Stupeň odmocniny
 # @return Výsledek odmocniny
 def root(a, b):
-   # Základní kontroly chyb
-    if b == 0:
-        raise ValueError("Stupeň odmocniny nemůže být nula")
-    # Kontrola pro záporné a reálné b, které by vedly k nedefinovaným výsledkům
+    # Pokud je b menší nebo rovno nule, není definována žádná odmocnina
+    if b <= 0:
+        raise ValueError("Odmocnina musí být kladné číslo")
+    # Pokud je a menší než nula a b je desetinné číslo, není definována žádná odmocnina
     if a < 0 and isinstance(b, float):
         raise ValueError("Komplexní čísla nejsou podporována")
-    # Kontrola pro 0 a záporné b, které by vedly k nedefinovaným výsledkům    
-    if a == 0 and b < 0:
-        raise ValueError("Nula nemůže být umocněna na zápornou hodnotu")
-    # Kontrola pro záporné a sudé b, které by vedly k nedefinovaným výsledkům   
+    # Pokud je b ne celé číslo, není definována žádná odmocnina
+    if not isinstance(b, int):
+        raise ValueError("Odmocnina musí být celé číslo")
+    # Sudá odmocnina záporného čísla není definována pro záporná čísla
     if a < 0 and b % 2 == 0:
         raise ValueError("Druhá odmocnina není definována pro záporná čísla")
-    # Výpočet pro záporné b 
-    if b < 0:
-        res = abs(a) ** (1 / abs(b))
-        return -res if (a < 0 or b < 0) else res
-    # Výpočet lichých odmocnin ze záporných čísel
+    # Výpočet odmocniny pro všechny ostatní případy
     if a < 0:
         return -((-a) ** (1 / b))
-    # Standardní výpočet
     return a ** (1 / b)
 
 
