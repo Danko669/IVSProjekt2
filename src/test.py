@@ -159,13 +159,13 @@ def test_mat_divide_zero():
 
 # @brief Testy pro funkci divide chyby
 def test_mat_divide_errors():
-    with pytest.raises(ZeroDivisionError, match="Cannot divide by zero"):
+    with pytest.raises(ZeroDivisionError, match="Nemůžete dělit nulou"):
         mat.divide(5, 0)
-    with pytest.raises(ZeroDivisionError, match="Cannot divide by zero"):
+    with pytest.raises(ZeroDivisionError, match="Nemůžete dělit nulou"):
         mat.divide(-5, 0)
-    with pytest.raises(ZeroDivisionError, match="Cannot divide by zero"):
+    with pytest.raises(ZeroDivisionError, match="Nemůžete dělit nulou"):
         mat.divide(2.5, 0)
-    with pytest.raises(ZeroDivisionError, match="Cannot divide by zero"):
+    with pytest.raises(ZeroDivisionError, match="Nemůžete dělit nulou"):
         mat.divide(-2.5, 0) 
 
 
@@ -197,11 +197,12 @@ def test_mat_power_mixed():
     assert mat.power(2, -2) == 0.25
     assert math.isclose(mat.power(2.5, -2), 0.16)
     assert math.isclose(mat.power(-2.5, 2), 6.25)
-    assert math.isclose(mat.power(2, -2.5), 0.16)
+    assert math.isclose(mat.power(2, -2.5), 0.1767766952966369)
 
 
 # @brief Testy pro funkci power nuly
 def test_mat_power_zero():
+    assert mat.power(0, 0) == 1
     assert mat.power(0, 2) == 0
     assert mat.power(2, 0) == 1
     assert mat.power(-2, 0) == 1
@@ -212,11 +213,9 @@ def test_mat_power_zero():
 
 # @brief Testy pro funkci power chyby
 def test_mat_power_errors():
-    with pytest.raises(ValueError, match="Zero cannot be raised to the power of zero"):
-        mat.power(0, 0)
-    with pytest.raises(ValueError, match="Zero cannot be raised to a negative power"):
+    with pytest.raises(ValueError, match="Nula nemůže být umocněna na zápornou hodnotu"):
         mat.power(0, -2)
-    with pytest.raises(ValueError, match="Complex numbers are not supported"):
+    with pytest.raises(ValueError, match="Komplexní čísla nejsou podporována"):
         mat.power(-2, 2.5)
 
 
@@ -255,13 +254,13 @@ def test_mat_root_zero():
 
 # @brief Testy pro funkci root chyby
 def test_mat_root_errors():
-    with pytest.raises(ValueError, match="Root degree cannot be zero"):
+    with pytest.raises(ValueError, match="Stupeň odmocniny nemůže být nula"):
         mat.root(5, 0)
-    with pytest.raises(ValueError, match="0 cannot be raised to a negative power"):
+    with pytest.raises(ValueError, match="Nula nemůže být umocněna na zápornou hodnotu"):
         mat.root(0, -2)
-    with pytest.raises(ValueError, match="Square root is not defined for negative numbers"):
+    with pytest.raises(ValueError, match="Druhá odmocnina není definována pro záporná čísla"):
         mat.root(-4, 2)
-    with pytest.raises(ValueError, match="Complex numbers are not supported"):
+    with pytest.raises(ValueError, match="Komplexní čísla nejsou podporována"):
         mat.root(-2, 2.5)   
      
 
@@ -284,9 +283,9 @@ def test_mat_factorial_zero():
 
 # @brief Testy pro funkci factorial chyby
 def test_mat_factorial_errors():
-    with pytest.raises(ValueError, match="Factorial is not defined for negative numbers"):
+    with pytest.raises(ValueError, match="Faktoriál není definován pro záporná čísla"):
         mat.factorial(-1)
-    with pytest.raises(ValueError, match="Factorial is not defined for non-integer numbers"):
+    with pytest.raises(ValueError, match="Faktoriál není definován pro necelá čísla"):
         mat.factorial(2.5)
    
 
@@ -313,7 +312,7 @@ def test_mat_evaluate():
     assert mat.evaluate("factorial(5) - power(2, 3)") == 112
     assert mat.evaluate("absolute_value(-3) + root(27, 3)") == 6
     assert mat.evaluate("add(2.5, multiply(3.5, 4))") == 16.5
-    assert mat.evaluate("power(2.5, 3) + factorial(4)") == 30.625
+    assert mat.evaluate("power(2.5, 3) + factorial(4)") == 39.625
     assert mat.evaluate("root(2.25, 2) + absolute_value(-1.5)") == 3.0
     with pytest.raises(NameError):
         mat.evaluate("invalid_function(2, 3)")
