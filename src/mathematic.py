@@ -112,7 +112,7 @@ def factorial(n):
     if n < 0:
         raise ValueError("Faktoriál není definován pro záporná čísla")
     # Kontrola pro příliš velké číslo, které by mohlo způsobit přetečení
-    if n > 170:
+    if n > 1001:
         raise ValueError("Výsledek faktoriálu je příliš velký na zvládnutí")
     # Výpočet faktoriálu pro n = 0 a n = 1
     elif n == 0 or n == 1:
