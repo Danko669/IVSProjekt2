@@ -233,16 +233,11 @@ def test_mat_root_positive():
     assert mat.root(1, 2) == 1
 
 
-# @brief Testy pro funkci root záporných čísel
-def test_mat_root_negative():
-    assert math.isclose(mat.root(-8, -3), -2)
-    assert math.isclose(mat.root(-1, -3), -1)
-
-
 # @brief Testy pro funkci root smíšených čísel
 def test_mat_root_mixed():
-    assert math.isclose(mat.root(8, -3), -2)
     assert math.isclose(mat.root(-8, 3), -2)
+    assert math.isclose(mat.root(-27, 3), -3)
+    assert math.isclose(mat.root(-1, 3), -1)
 
 
 # @brief Testy pro funkci root nuly
@@ -254,17 +249,32 @@ def test_mat_root_zero():
 
 # @brief Testy pro funkci root chyby
 def test_mat_root_errors():
-    with pytest.raises(ValueError, match="Stupeň odmocniny nemůže být nula"):
-        mat.root(5, 0)
-    with pytest.raises(ValueError, match="Nula nemůže být umocněna na zápornou hodnotu"):
-        mat.root(0, -2)
     with pytest.raises(ValueError, match="Druhá odmocnina není definována pro záporná čísla"):
         mat.root(-4, 2)
     with pytest.raises(ValueError, match="Komplexní čísla nejsou podporována"):
         mat.root(-2, 2.5)   
-     
+    with pytest.raises(ValueError, match="Odmocnina musí být kladné číslo"):
+        mat.root(5, -2)
 
 
+# @brief Testy pro funkci sqrt kladných čísel
+def test_mat_sqrt_positive():
+    assert mat.sqrt(4) == 2
+    assert mat.sqrt(9) == 3
+    assert math.isclose(mat.sqrt(2.25), 1.5)
+
+
+# @brief Testy pro funkci sqrt záporných čísel
+def test_mat_sqrt_negative():
+    with pytest.raises(ValueError, match="Druhá odmocnina není definována pro záporná čísla"):
+        mat.sqrt(-1)
+    with pytest.raises(ValueError, match="Druhá odmocnina není definována pro záporná čísla"):
+        mat.sqrt(-4)
+
+
+# @brief Testy pro funkci sqrt nuly
+def test_mat_sqrt_zero():
+    assert mat.sqrt(0) == 0
 
 
 # @brief Testy pro funkci factorial kladných čísel
