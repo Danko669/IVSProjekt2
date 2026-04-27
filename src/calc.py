@@ -1,7 +1,7 @@
 ##
 # @file calc.py
 # @brief Westernová kalkulačka s GUI - OPRAVENÁ VERZE (Znaménka, Z-Index, Létající rotující křoví)
-# @author Václav Král xkralva00
+# @author Daniel Baloun xbaloud00
 # @date 2026-04-02
 
 import tkinter as tk
