@@ -1,6 +1,6 @@
 ##
 # @file calc.py
-# @brief Westernová kalkulačka s GUI - OPRAVENÁ VERZE (Znaménka, Z-Index, Létající rotující křoví)
+# @brief Westernová kalkulačka s GUI - OPRAVENÁ VERZE (Znaménka, Z-Index, Létající rotující křoví, MP3 Výstřely)
 # @author Daniel Baloun xbaloud00
 # @date 2026-04-02
 
@@ -10,7 +10,6 @@ import random
 import os
 import sys
 import threading
-import winsound
 import ctypes
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -25,7 +24,7 @@ except ImportError:
     print("Chyba: Nelze importovat mathematic.py.")
     sys.exit(1)
 
-# --- Správa zvuku ---
+# --- Správa zvuku přes MCI (nyní kompletně pro MP3) ---
 _winmm = ctypes.WinDLL("winmm")
 _winmm.mciSendStringW.argtypes = [ctypes.c_wchar_p, ctypes.c_wchar_p, ctypes.c_uint, ctypes.c_void_p]
 _winmm.mciSendStringW.restype = ctypes.c_int32
@@ -54,12 +53,18 @@ def play_krovi_sound():
         _mci("play krovisound")
 
 def load_shot_paths():
-    return [os.path.join(BASE_DIR, f"shot{i}.wav") for i in range(1, 9) if os.path.exists(os.path.join(BASE_DIR, f"shot{i}.wav"))]
+    # Změněno z .wav na .mp3
+    return [os.path.join(BASE_DIR, f"shot{i}.mp3").replace("/", "\\") for i in range(1, 9) if os.path.exists(os.path.join(BASE_DIR, f"shot{i}.mp3"))]
 
 def play_random_shot(shot_paths):
     if shot_paths:
         path = random.choice(shot_paths)
-        threading.Thread(target=lambda: winsound.PlaySound(path, winsound.SND_FILENAME | winsound.SND_ASYNC), daemon=True).start()
+        # Vytvoříme 5 nezávislých zvukových kanálů, aby se výstřely při rychlém klikání mohly překrývat
+        kanal = random.randint(1, 5)
+        alias = f"vystrel_{kanal}"
+        _mci(f"close {alias}")
+        _mci(f'open "{path}" type mpegvideo alias {alias}')
+        _mci(f"play {alias}")
 
 # --- Barvy ---
 C = {
@@ -75,6 +80,13 @@ class WesternCalculator:
         self.root = root_window
         self.root.title("☆  DEAD MAN'S CALC  ☆")
         self.root.resizable(False, False)
+
+        try:
+            icon_path = os.path.join(BASE_DIR, "icon.png")
+            icon_img = tk.PhotoImage(file=icon_path)
+            self.root.iconphoto(False, icon_img)
+        except Exception as e:
+            print(f"Tip: Pro zobrazení ikonky si ulož 'icon.png' do složky se skriptem. (Chyba: {e})")
         
         self.expression = ""
         self.result_shown = False
@@ -197,16 +209,11 @@ class WesternCalculator:
                 current_x += (btn_w * span) + (pad_x * span)
 
     def _btn(self, text, cmd, bg, hover, x, y, span, serif, btn_w, btn_h, pad_x):
-        # Nyní jsou tlačítka kreslená přímo na plátně - to umožňuje překrytí létajícím křovím!
         width = (btn_w * span) + (pad_x * (span - 1))
 
-        # Zlatý okraj
         self.canvas.create_rectangle(x, y, x + width, y + btn_h, fill=C["border"], outline="")
-        # Vnitřek tlačítka
         btn_id = self.canvas.create_rectangle(x + 1, y + 1, x + width - 1, y + btn_h - 1, fill=bg, outline="")
-        # Text
         self.canvas.create_text(x + width / 2, y + btn_h / 2, text=text, fill=C["cream"], font=(serif, 11, "bold"))
-        # Neviditelný blok přes všechno kvůli přesné detekci kliknutí myši
         overlay_id = self.canvas.create_rectangle(x, y, x + width, y + btn_h, fill="", outline="")
 
         def on_click(e, c=cmd):
@@ -232,7 +239,6 @@ class WesternCalculator:
 
         threading.Thread(target=play_krovi_sound, daemon=True).start()
 
-        # Poletí primárně přes spodní půlku obrazovky (přes tlačítka)
         start_y = random.randint(350, 580)
         start_x = -100  
 
@@ -244,12 +250,10 @@ class WesternCalculator:
             self.canvas.delete(item_id)
             return
 
-        # Animace rotace z pole vygenerovaných snímků
         idx = frame_idx % len(self.krovi_frames)
         self.canvas.itemconfig(item_id, image=self.krovi_frames[idx])
 
         self.canvas.coords(item_id, current_x, current_y)
-        # Tento řádek zaručí, že se křoví vždy vykreslí NAD canvas tlačítky
         self.canvas.tag_raise(item_id)
 
         self.root.after(30, lambda: self._animovat_krovi(item_id, current_x + 5, current_y, frame_idx + 1))
