@@ -1,7 +1,7 @@
 ##
 # @file calc.py
-# @brief Westernová kalkulačka s GUI - VERZE S EASTER EGGY (67 a Error efekty NAD displejem)
-# @author Václav Král xkralva00
+# @brief Westernová kalkulačka s GUI - VERZE S EASTER EGGY PŘED DISPLEJEM
+# @author Daniel Baloun xbaloud00
 # @date 2026-04-02
 
 import tkinter as tk
@@ -102,13 +102,10 @@ class WesternCalculator:
         play_background_music()
         self.root.protocol("WM_DELETE_WINDOW", self._on_close)
 
-        # Načtení všech speciálních obrázků
         self._nacti_obrazky()
-
         self._build_ui()
         self._bind_keyboard()
 
-        # Spuštění časovače pro křoví (15 vteřin)
         self.root.after(15000, self.letajici_krovi)
 
     def _on_close(self):
@@ -116,7 +113,6 @@ class WesternCalculator:
         self.root.destroy()
 
     def _nacti_obrazky(self):
-        # 1. Křoví
         self.krovi_frames = []
         try:
             from PIL import Image, ImageTk
@@ -126,7 +122,6 @@ class WesternCalculator:
                 self.krovi_frames.append(ImageTk.PhotoImage(rotated))
         except: pass
 
-        # 2. Error a 67 PNG
         try:
             self.img_error = tk.PhotoImage(file=os.path.join(BASE_DIR, "error.png"))
             self.img_67 = tk.PhotoImage(file=os.path.join(BASE_DIR, "67.png"))
@@ -148,14 +143,22 @@ class WesternCalculator:
         self.music_btn = tk.Button(self.root, text="♪", bg=C["btn_op"], fg=C["gold_light"], relief="flat", bd=0, width=2, command=self._toggle_music)
         self.canvas.create_window(390, 20, window=self.music_btn, anchor="ne")
 
-        disp_frame = tk.Frame(self.root, bg=C["border"], padx=2, pady=2)
-        disp_inner = tk.Frame(disp_frame, bg=C["display_bg"])
-        disp_inner.pack(fill="x")
+        # --- NOVÝ DISPLEJ (nakreslený přímo na plátně kvůli vrstvám Z-index) ---
+        disp_w, disp_h = 380, 85
+        cx, cy = 210, 240
+        dx1, dy1 = cx - disp_w/2, cy - disp_h/2
+        dx2, dy2 = cx + disp_w/2, cy + disp_h/2
+
+        # Vykreslení rámečku a pozadí displeje
+        self.canvas.create_rectangle(dx1, dy1, dx2, dy2, fill=C["border"], outline="")
+        self.canvas.create_rectangle(dx1+2, dy1+2, dx2-2, dy2-2, fill=C["display_bg"], outline="")
+
+        # Proměnné a Textové položky displeje
         self.expr_var = tk.StringVar(value="")
-        tk.Label(disp_inner, textvariable=self.expr_var, bg=C["display_bg"], fg=C["gold"], anchor="e", font=(mono, 9), padx=8, pady=2).pack(fill="x")
+        self.expr_text_id = self.canvas.create_text(dx2 - 10, dy1 + 20, text="", fill=C["gold"], anchor="e", font=(mono, 9))
+
         self.disp_var = tk.StringVar(value="0")
-        tk.Label(disp_inner, textvariable=self.disp_var, bg=C["display_bg"], fg=C["display_fg"], anchor="e", font=(mono, 26, "bold"), padx=8, pady=6, width=14).pack(fill="x")
-        self.canvas.create_window(210, 240, window=disp_frame, anchor="center", width=380)
+        self.disp_text_id = self.canvas.create_text(dx2 - 10, dy2 - 25, text="0", fill=C["display_fg"], anchor="e", font=(mono, 26, "bold"))
 
         self._make_buttons(serif)
 
@@ -192,8 +195,9 @@ class WesternCalculator:
             _mci(f"close {alias}")
             _mci(f'open "{path}" type mpegvideo alias {alias}')
             _mci(f"play {alias}")
-            # Pozice upravena z Y=325 na Y=160 (přesně nad rámečkem výsledků)
-            img_id = self.canvas.create_image(210, 160, image=obrazek_obj, anchor="center")
+            
+            # Y=240 je přesně střed displeje. Nyní díky úpravě vykreslení spolehlivě překryje výsledky.
+            img_id = self.canvas.create_image(210, 240, image=obrazek_obj, anchor="center")
             self.canvas.tag_raise(img_id)
             self.root.after(2000, lambda: self.canvas.delete(img_id))
 
@@ -211,6 +215,15 @@ class WesternCalculator:
         self.canvas.coords(kid, x, y)
         self.canvas.tag_raise(kid)
         self.root.after(30, lambda: self._animovat_krovi(kid, x+5, y, fidx+1))
+
+    # --- FUNKCE PRO ÚPRAVU DISPLEJE ---
+    def _show(self, v): 
+        self.disp_var.set(v)
+        self.canvas.itemconfig(self.disp_text_id, text=v)
+        
+    def _show_expr(self, v): 
+        self.expr_var.set(v)
+        self.canvas.itemconfig(self.expr_text_id, text=v)
 
     # --- LOGIKA ---
     def _finish(self, res):
@@ -283,8 +296,6 @@ class WesternCalculator:
         else: pause_background_music(); self.music_btn.configure(text="♪", fg=C["wood_mid"], bg=C["btn_spec"])
     def _get_serif(self): return "Georgia" if "Georgia" in tkfont.families() else "serif"
     def _get_mono(self): return "Courier New" if "Courier New" in tkfont.families() else "monospace"
-    def _show(self, v): self.disp_var.set(v)
-    def _show_expr(self, v): self.expr_var.set(v)
     def _current_number(self): 
         try: return float(self.disp_var.get())
         except: return 0.0
