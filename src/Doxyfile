@@ -1,1 +1,28 @@
-PLaceholder pro doxyfile
+PROJECT_NAME           = "Kalkulačka IVS"
+PROJECT_NUMBER         = "1.0"
+OUTPUT_LANGUAGE        = Czech
+
+
+OUTPUT_DIRECTORY       = ../doc
+
+
+INPUT                  = .
+
+
+FILE_PATTERNS          = *.py
+
+
+EXTRACT_ALL            = YES
+EXTRACT_PRIVATE        = YES
+EXTRACT_STATIC         = YES
+
+
+OPTIMIZE_OUTPUT_JAVA   = YES
+
+
+GENERATE_HTML          = YES
+GENERATE_LATEX         = NO
+
+
+QUIET                  = YES
+WARNINGS               = YES
