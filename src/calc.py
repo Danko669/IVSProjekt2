@@ -14,6 +14,13 @@ import ctypes
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
+# Dynamické určení cesty ke složce media
+# Očekává složku media na stejné úrovni jako src (o úroveň výš oproti calc.py)
+MEDIA_DIR = os.path.abspath(os.path.join(BASE_DIR, "..", "media"))
+if not os.path.exists(MEDIA_DIR):
+    # Fallback pro případ, že je calc.py přímo vedle složky media (podle screenshotu)
+    MEDIA_DIR = os.path.join(BASE_DIR, "media")
+
 try:
     from mathematic import (
         add, subtract, multiply, divide,
@@ -38,7 +45,7 @@ else:
         return 0
 
 def play_background_music():
-    path = os.path.join(BASE_DIR, "western_boogie.mp3").replace("/", "\\")
+    path = os.path.join(MEDIA_DIR, "western_boogie.mp3").replace("/", "\\")
     if os.path.exists(path):
         _mci("close bgmusic")
         _mci(f'open "{path}" type mpegvideo alias bgmusic')
@@ -51,14 +58,14 @@ def stop_background_music():
     _mci("close bgmusic")
 
 def play_krovi_sound():
-    path = os.path.join(BASE_DIR, "krovi.mp3").replace("/", "\\")
+    path = os.path.join(MEDIA_DIR, "krovi.mp3").replace("/", "\\")
     if os.path.exists(path):
         _mci("close krovisound")
         _mci(f'open "{path}" type mpegvideo alias krovisound')
         _mci("play krovisound")
 
 def load_shot_paths():
-    return [os.path.join(BASE_DIR, f"shot{i}.mp3").replace("/", "\\") for i in range(1, 9) if os.path.exists(os.path.join(BASE_DIR, f"shot{i}.mp3"))]
+    return [os.path.join(MEDIA_DIR, f"shot{i}.mp3").replace("/", "\\") for i in range(1, 9) if os.path.exists(os.path.join(MEDIA_DIR, f"shot{i}.mp3"))]
 
 def play_random_shot(shot_paths):
     if shot_paths:
@@ -86,7 +93,7 @@ class WesternCalculator:
 
         # Ikonka
         try:
-            icon_path = os.path.join(BASE_DIR, "icon.png")
+            icon_path = os.path.join(MEDIA_DIR, "icon.png")
             icon_img = tk.PhotoImage(file=icon_path)
             self.root.iconphoto(False, icon_img)
         except: pass
@@ -116,15 +123,15 @@ class WesternCalculator:
         self.krovi_frames = []
         try:
             from PIL import Image, ImageTk
-            krovi_img = Image.open(os.path.join(BASE_DIR, "krovi.png")).convert("RGBA")
+            krovi_img = Image.open(os.path.join(MEDIA_DIR, "krovi.png")).convert("RGBA")
             for angle in range(0, 360, 15):
                 rotated = krovi_img.rotate(-angle, expand=True)
                 self.krovi_frames.append(ImageTk.PhotoImage(rotated))
         except: pass
 
         try:
-            self.img_error = tk.PhotoImage(file=os.path.join(BASE_DIR, "error.png"))
-            self.img_67 = tk.PhotoImage(file=os.path.join(BASE_DIR, "67.png"))
+            self.img_error = tk.PhotoImage(file=os.path.join(MEDIA_DIR, "error.png"))
+            self.img_67 = tk.PhotoImage(file=os.path.join(MEDIA_DIR, "67.png"))
         except:
             self.img_error = self.img_67 = None
 
@@ -135,7 +142,7 @@ class WesternCalculator:
         self.canvas.pack(fill="both", expand=True)
 
         try:
-            self.bg_photo = tk.PhotoImage(file=os.path.join(BASE_DIR, "background.png"))
+            self.bg_photo = tk.PhotoImage(file=os.path.join(MEDIA_DIR, "background.png"))
             self.canvas.create_image(0, 0, image=self.bg_photo, anchor="nw")
         except:
             self.canvas.configure(bg=C["wood_dark"])
@@ -190,7 +197,7 @@ class WesternCalculator:
 
     # --- SPECIÁLNÍ EFEKTY ---
     def _vyskakovaci_efekt(self, zvuk_file, obrazek_obj, alias):
-        path = os.path.join(BASE_DIR, zvuk_file).replace("/", "\\")
+        path = os.path.join(MEDIA_DIR, zvuk_file).replace("/", "\\")
         if os.path.exists(path) and obrazek_obj:
             _mci(f"close {alias}")
             _mci(f'open "{path}" type mpegvideo alias {alias}')
