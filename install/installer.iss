@@ -11,7 +11,7 @@ SolidCompression=yes
 
 Uninstallable=yes
 
-SetupIconFile=..\src\ikona.ico
+SetupIconFile=..\src\media\ikona.ico
 UninstallDisplayIcon={app}\calc.exe
 [Files]
 Source: "..\dist\calc.exe"; DestDir: "{app}"; Flags: ignoreversion

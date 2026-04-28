@@ -31,7 +31,7 @@ stddev: env
 clean:
 	rm -rf __pycache__ .pytest_cache
 	rm -rf ../doc/html
-	rm -rf ../build/ ../dist/ ../calc.spec
+	rm -rf ../build/ ../dist/ ../calc.spec calc.spec
 	rm -f $(ARCHIVE)
 	
 doc:
