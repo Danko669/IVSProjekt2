@@ -8,12 +8,11 @@ OutputDir=.\
 OutputBaseFilename=calc_win_install
 Compression=lzma
 SolidCompression=yes
-//UninstallDisplayIcon={app}\calc.exe
+
 Uninstallable=yes
 
-
-//SetupIconFile=..\src\ikona.ico
-
+SetupIconFile=..\src\ikona.ico
+UninstallDisplayIcon={app}\calc.exe
 [Files]
 Source: "..\dist\calc.exe"; DestDir: "{app}"; Flags: ignoreversion
 

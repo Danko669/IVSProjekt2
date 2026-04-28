@@ -1,0 +1,2 @@
+pyinstaller --onefile --noconsole --icon="src/ikona.ico" --add-data "src/*.wav;src" --add-data "src/*.mp3;src" src/calc.py
+pyinstaller --onefile --noconsole  src/calc.py
