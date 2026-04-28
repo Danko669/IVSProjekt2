@@ -45,4 +45,4 @@ variance = mat.divide(variance_total, mat.subtract(length, 1))
 # @param variance Rozptyl dat
 # @return Výsledek výpočtu směrodatné odchylky
 std_dev = mat.root(variance, 2) 
-print(f"Standard Deviation: {std_dev}")
+print(std_dev)
