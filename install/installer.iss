@@ -5,12 +5,14 @@ AppPublisher=xbaloud00_xkralva00_xmaskal00
 DefaultDirName={pf}\KalkulackaIVS
 DefaultGroupName=Kalkulacka IVS
 OutputDir=.\
-OutputBaseFilename=calc_install
+OutputBaseFilename=calc_win_install
 Compression=lzma
 SolidCompression=yes
 
-SetupIconFile=..\src\ikona.ico
+Uninstallable=yes
 
+SetupIconFile=..\src\ikona.ico
+UninstallDisplayIcon={app}\calc.exe
 [Files]
 Source: "..\dist\calc.exe"; DestDir: "{app}"; Flags: ignoreversion
 
