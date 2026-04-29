@@ -8,48 +8,59 @@ CALC = calc.py
 TEST = test.py
 PROF = profiling.py
 DOXY = Doxyfile
+
+PYTHON = python3
+VENV = .venv
+VENV_PY = $(VENV)/bin/python3
+VENV_PIP = $(VENV)/bin/pip
+VENV_PYTEST = $(VENV)/bin/pytest
+VENV_PYINSTALLER = $(VENV)/bin/pyinstaller
+
+
+REQS = ../requirements.txt
 ARCHIVE = ../xbaloud00_xkralva00_xmaskal00.tar.gz
+REPO = ../repo
 
 .DEFAULT_GOAL := all
-.PHONY: all run test stddev clean help doc pack
+.PHONY: all env run test stddev clean help doc pack
 
-all: env
+all: env stddev
 
 env:
-	test -d .venv || python3 -m venv .venv
-	.venv/bin/pip install -r ../requirements.txt
+	test -d $(VENV) || $(PYTHON) -m venv $(VENV)
+	$(VENV_PIP) install -r $(REQS)
 
 run: env
-	python3 $(CALC)
+	$(VENV_PY) $(CALC)
 
 test: env
-	.venv/bin/pytest -v $(TEST)
+	$(VENV_PYTEST) -v $(TEST)
 
 stddev: env
-	python3 $(PROF)
-
+	$(VENV_PYINSTALLER) --onefile --name stddev --distpath . --workpath ../build $(PROF)
+	
 clean:
-	rm -rf __pycache__ .pytest_cache
+	rm -rf __pycache__ .pytest_cache $(VENV)
 	rm -rf ../doc/html
 	rm -rf ../build/ ../dist/ ../calc.spec calc.spec
-	rm -f $(ARCHIVE)
+	rm -f $(ARCHIVE) stddev stddev.spec
 	
 doc:
 	doxygen $(DOXY)
 	
 pack: clean
 	$(MAKE) doc
-	mkdir -p ../repo
-	cp -r ../.git ../.gitignore ../README.md ../requirements.txt ../src/ ../mockup/ ../plan/ ../profiling/ ../install/ ../manual.pdf ../hodnoceni.txt ../skutecnost.txt ../screenshot.png ../debugging.png ../repo/ 2>/dev/null || true
+	mkdir -p $(REPO)
+	cp -r ../.git ../.gitignore ../README.md ../requirements.txt ../src/ ../mockup/ ../plan/ ../profiling/ ../install/ ../manual.pdf ../hodnoceni.txt ../skutecnost.txt ../screenshot.png ../debugging.png $(PACK_DIR)/ 2>/dev/null || true
 	tar -czvf $(ARCHIVE) -C .. doc/ install/ repo/
-	rm -rf ../repo
+	rm -rf $(REPO)
 
 help:
 	@echo "Dostupne cile:"
 	@echo "  all    - Pripravi prostredi a stahne zavislosti (nepousti aplikaci)"
 	@echo "  run    - Pripravi prostredi a spusti kalkulacku"
 	@echo "  test   - Spusti unit testy"
-	@echo "  stddev - Pripravi prostredi a spusti program pro smerodatnou odchylku"
+	@echo "  stddev - Pripravi prostredi a zkompiluje program pro smerodatnou odchylku"
 	@echo "  clean  - Odstrani docasne soubory a vygenerovanou dokumentaci"
 	@echo "  doc    - Vygeneruje programovou dokumentaci"
 	@echo "  pack   - Zabali projekt do archivu pro odevzdani"
