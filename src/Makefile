@@ -51,7 +51,7 @@ doc:
 pack: clean
 	$(MAKE) doc
 	mkdir -p $(REPO)
-	cp -r ../.git ../.gitignore ../README.md ../requirements.txt ../src/ ../mockup/ ../plan/ ../profiling/ ../install/ ../manual.pdf ../hodnoceni.txt ../skutecnost.txt ../screenshot.png ../debugging.png $(PACK_DIR)/ 2>/dev/null || true
+	cp -r ../.git ../.gitignore ../README.md ../requirements.txt ../src/ ../mockup/ ../plan/ ../profiling/ ../install/ ../manual.pdf ../hodnoceni.txt ../LICENCE ../skutecnost.txt ../screenshot.png ../debugging.png $(REPO)/ 2>/dev/null || true
 	tar -czvf $(ARCHIVE) -C .. doc/ install/ repo/
 	rm -rf $(REPO)
 
