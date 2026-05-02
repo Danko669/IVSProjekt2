@@ -1,1 +1,12 @@
-tento soubor bude obsahovat rozdil mezi planem projektu a skutecnosti
+Shrnutí stavu projektu
+======================
+
+Náš projekt se v současné době shoduje s původním časovým i věcným plánem.
+Všechny stanovené funkce byly implementovány a splňují požadavky.
+
+Jedinou odchylkou od původního záměru je grafické uživatelské rozhraní (GUI).
+Původně jsme plánovali vizuálně propracovanější GUI s větším množstvím
+grafických prvků a obrázků. Aktuální verze se soustředí primárně na funkčnost,
+zatímco vizuální stránka je v porovnání s původním plánem zjednodušená.
+
+Závěr: Funkční požadavky jsou naplněny na 100 %.
